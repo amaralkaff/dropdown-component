@@ -17,6 +17,9 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       
@@ -24,8 +27,19 @@ jobs:
         with:
           bun-version: latest
       
-      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+      - name: Build Storybook
+        run: |
+          bun install
+          bun run build-storybook
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          install_command: bun install
-          build_command: bun run build-storybook
-          path: storybook-static 
+          path: storybook-static
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 
