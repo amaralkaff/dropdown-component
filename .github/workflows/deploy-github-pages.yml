@@ -32,19 +32,13 @@ jobs:
         with:
           bun-version: latest
       
-      # Build Library first
-      - name: Build Library
-        run: |
-          bun install
-          bun run build-lib
+      # Install dependencies
+      - name: Install dependencies
+        run: bun install
       
-      #👇 Add Storybook build and deploy to GitHub Pages
-      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
-        with:
-          install_command: bun install
-          build_command: bun run build-storybook
-          path: storybook-static
-          checkout: false
+      # Build Library
+      - name: Build Library
+        run: bun run build-lib
       
       # Build Storybook
       - name: Build Storybook
