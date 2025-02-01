@@ -8,10 +8,10 @@
   "files": [
     "dist"
   ],
-  "homepage": "https://abu-ammar-makyo.github.io/dropdown-component",
+  "homepage": "https://amaralkaff.github.io/dropdown-component",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abu-ammar-makyo/dropdown-component.git"
+    "url": "git+https://github.com/amaralkaff/dropdown-component.git"
   },
   "scripts": {
     "dev": "bunx --bun vite",
