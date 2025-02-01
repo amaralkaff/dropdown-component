@@ -16,6 +16,10 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     # Job steps
     steps:
       # Manual Checkout
@@ -28,13 +32,19 @@ jobs:
         with:
           bun-version: latest
       
-      # Install dependencies
-      - name: Install dependencies
-        run: bun install
-      
-      # Build Library
+      # Build Library first
       - name: Build Library
-        run: bun run build-lib
+        run: |
+          bun install
+          bun run build-lib
+      
+      #👇 Add Storybook build and deploy to GitHub Pages
+      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        with:
+          install_command: bun install
+          build_command: bun run build-storybook
+          path: storybook-static
+          checkout: false
       
       # Build Storybook
       - name: Build Storybook
