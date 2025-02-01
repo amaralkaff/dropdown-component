@@ -1,7 +1,5 @@
 # Dropdown Component
 
-A modern, customizable dropdown component for React applications.
-
 ## 🔗 Links
 - [Storybook Documentation](https://amaralkaff.github.io/dropdown-component)
 - [GitHub Repository](https://github.com/amaralkaff/dropdown-component)
@@ -10,8 +8,8 @@ A modern, customizable dropdown component for React applications.
 
 ### Prerequisites
 - Bun (latest version)
-- React 18+
-- Tailwind CSS 4
+- React ^18.0.0
+- Tailwind CSS ^4.0.2
 
 ### Installation
 
@@ -38,6 +36,9 @@ bun run build-lib
 
 # Build Storybook
 bun run build-storybook
+
+# Deploy Storybook
+bun run deploy-storybook
 ```
 
 ## 📦 Using as Dependency
@@ -99,17 +100,44 @@ function App() {
 
 ## 📚 Dependencies
 
-Minimal external dependencies:
+### Core Dependencies
 - `react`: ^18.0.0
 - `react-dom`: ^18.0.0
-- `tailwindcss`: ^4.0.0
+- `tailwindcss`: ^4.0.2
+- `@tailwindcss/vite`: ^4.0.2
 
-Dev dependencies:
-- `@storybook/react`: For component documentation
-- `vite`: For development and building
-- `typescript`: For type safety
+### Dev Dependencies
+- `@storybook/react`: ^8.5.2
+- `@storybook/addon-essentials`: ^8.5.2
+- `@storybook/addon-interactions`: ^8.5.2
+- `typescript`: ~5.6.2
+- `vite`: ^6.0.5
+- `eslint`: ^9.17.0
 
-## 📝 License
+### Peer Dependencies
+```json
+{
+  "react": "^18.0.0",
+  "react-dom": "^18.0.0"
+}
+```
 
-MIT
+## 🛠️ Scripts
+
+```bash
+# Development
+bun run dev         # Start development server
+bun run storybook   # Run Storybook dev server
+
+# Building
+bun run build       # Build the project
+bun run build-lib   # Build the library
+bun run build-storybook  # Build Storybook
+
+# Deployment
+bun run deploy-storybook  # Deploy Storybook to GitHub Pages
+
+# Linting
+bun run lint        # Run ESLint
+```
 
