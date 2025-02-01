@@ -22,25 +22,34 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      # Set up Node
-      - uses: actions/setup-node@v4
+      
+      # Install Bun
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: '20'
-          cache: 'npm'
+          bun-version: latest
+      
       # Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: bun install
+      
+      # Build Library
+      - name: Build Library
+        run: bun run build-lib
+      
       # Build Storybook
       - name: Build Storybook
-        run: npm run build-storybook
+        run: bun run build-storybook
+      
       # Setup Pages
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      
       # Upload artifact
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: storybook-static
+      
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
