@@ -19,7 +19,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "bunx --bun vite preview",
-    "build-lib": "tsc && bunx --bun vite build",
+    "build-lib": "bunx --bun vite build",
     "prepare": "bun run build-lib",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build --debug",

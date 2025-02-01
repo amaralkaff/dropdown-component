@@ -22,10 +22,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
-    ".storybook/**/*.ts",
-    ".storybook/**/*.tsx",
-    "vite.config.ts"
+    "src/**/*.tsx"
   ],
+  "exclude": ["node_modules", "dist", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
