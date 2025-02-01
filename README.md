@@ -102,7 +102,7 @@ function App() {
 Minimal external dependencies:
 - `react`: ^18.0.0
 - `react-dom`: ^18.0.0
-- `tailwindcss`: ^3.0.0
+- `tailwindcss`: ^4.0.0
 
 Dev dependencies:
 - `@storybook/react`: For component documentation
