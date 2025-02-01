@@ -7,20 +7,22 @@ on:
     branches:
       - 'main' # Branch utama untuk deploy
 
+# Sets permissions of the GITHUB_TOKEN
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 # List of jobs
 jobs:
-  deploy:
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
-    # Job steps
     steps:
       # Manual Checkout
       - uses: actions/checkout@v4
@@ -44,15 +46,23 @@ jobs:
       - name: Build Storybook
         run: bun run build-storybook
       
-      # Setup Pages
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      
       # Upload artifact
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: storybook-static
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      # Setup Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
       
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
