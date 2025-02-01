@@ -6,23 +6,32 @@ on:
   push:
     branches:
       - 'main' # Branch utama untuk deploy
+  # Izinkan manual trigger
+  workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN
 permissions:
   contents: read
   pages: write
   id-token: write
+  deployments: write
 
 # Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  # Enable debug logging in the GitHub Actions runner
+  ACTIONS_RUNNER_DEBUG: true
+
 # List of jobs
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    # Tambahkan environment di job build
+    environment: github-pages
     steps:
       # Manual Checkout
       - uses: actions/checkout@v4
@@ -55,6 +64,11 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    # Tambahkan permissions khusus untuk deployment
+    permissions:
+      pages: write
+      id-token: write
+      deployments: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -67,4 +81,6 @@ jobs:
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} 
